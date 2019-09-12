@@ -1,0 +1,39 @@
+@import '../common.less';
+
+.sign-in-container {
+    .layout-column();
+    justify-content: flex-start;
+    align-items: center;
+
+    .common-navbar();
+
+    .form {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        width: 100%;
+        .form-list {
+            .common-list();
+        }
+    }
+
+    .submit {
+        width: 94%;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        .common-btn();
+    }
+
+    .info {
+        width: 94%;
+        .layout-row();
+        margin-top: 10px;
+        justify-content: space-between;
+        color: @text-primary;
+
+        .info-btn {
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
+}

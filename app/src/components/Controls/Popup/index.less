@@ -1,0 +1,33 @@
+
+.popup {
+    max-height: 70vh;
+    overflow: scroll;
+
+    .popup-title {
+        display: flex;
+
+        .title {
+            flex: 1;
+        }
+
+        .close {
+            width: 50px;
+        }
+
+
+    }
+
+    .content {
+        :global(.am-list-content) {
+            overflow: initial !important; 
+            text-overflow: initial !important; 
+            white-space: normal !important; 
+        }
+    }
+
+    .close-item {
+        :global(.am-list-content) {
+            text-align: center !important;
+        }
+    }
+}

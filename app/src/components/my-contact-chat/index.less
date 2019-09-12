@@ -1,0 +1,86 @@
+@import '../common.less';
+
+.contact-chat-container {
+    .layout-column();
+    align-items: stretch;
+    // .mobile-paddingtop();
+
+    .common-navbar();
+    
+    .content {
+        overflow-y: auto;
+
+        .action {
+            position: fixed;
+            bottom: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #ddd;
+            width: 100vw;
+
+            .message-input {
+                flex: 1;
+                padding: 5px;
+                box-sizing: border-box;
+
+                input {
+                    border: 1px solid #eee;
+                    border-radius: 5px;
+                    width: 95%;
+                    height: 30px;
+                    padding-left: 5px;
+                    padding-right: 5px;
+                }
+            }
+
+            .message-action {
+                padding: 5px;
+                box-sizing: border-box;
+            }
+        }
+
+        .logo {
+            border-radius: 5px;
+            background-size: cover;
+            min-height: 150px;
+            .margin-lr(20px);
+        }
+    
+        .title {
+            color: @text-second;
+            text-align: left;
+            font-size: 16px;
+            font-weight: 600;
+            margin: 20px;
+        }
+    
+        .list {
+            background-color: @bgcolor-primary;
+            border-radius: 5px;
+            padding-left: 10px;
+            .margin-lr(20px);
+            flex: 1;
+    
+            .info {
+                color: @text-primary;
+                font-size: 16px;
+                border-bottom: 1px solid @splite-primary;
+                padding: 20px;
+                .layout-row();
+                justify-content: space-between;
+                align-items: center;
+
+                .arrow {
+                    .ant-icon {
+                        color: @text-primary;
+                    }
+                }
+            }
+    
+            .bottom {
+                border-bottom: initial
+            }
+        }
+    }
+}
