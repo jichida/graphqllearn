@@ -9,6 +9,8 @@ const schema = require('./src/schema');
 const resolvers = require('./src/resolvers');
 const models = require('./src/models');
 const DataLoader =  require('dataloader');
+const loaders = require('./src/loaders');
+const http = require('http');
 
 winston.initLog();
 
@@ -32,6 +34,11 @@ const getMe = async req => {
 };
 
 const startServer = async () => {
+  debug(`start connect mongodb`);
+  await mongoose.connect(uri, {
+    useNewUrlParser: true,useFindAndModify: false  });
+
+    
   const app = express();
   app.use(cors());
   const server = new ApolloServer({
@@ -79,10 +86,9 @@ const startServer = async () => {
   });
 
   server.applyMiddleware({ app, path: '/graphql' });
+  const httpServer = http.createServer(app);
+  server.installSubscriptionHandlers(httpServer);
 
-  debug(`start connect mongodb`);
-  await mongoose.connect(uri, {
-    useNewUrlParser: true,useFindAndModify: false  });
 
   // await createUsersWithMessages();//for test
 

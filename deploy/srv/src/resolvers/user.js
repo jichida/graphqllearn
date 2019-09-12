@@ -3,6 +3,9 @@ const { combineResolvers } = require('graphql-resolvers');
 const { AuthenticationError, UserInputError } = require('apollo-server');
 const { isAdmin, isAuthenticated } = require('./authorization');
 
+console.log(`AuthenticationError--->`);
+console.log(AuthenticationError);
+
 const createToken = async (user, secret, expiresIn) => {
   const { id, email, username, role } = user;
   return await jwt.sign({ id, email, username, role }, secret, {
