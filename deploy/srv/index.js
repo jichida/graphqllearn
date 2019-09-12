@@ -1,20 +1,21 @@
 const { ApolloServer, gql } =  require("apollo-server-express");
 const express =  require("express");
 const mongoose =  require( "mongoose");
-const { resolvers } =  require( "./src/resolvers");
-const { typeDefs } =  require( "./src/typeDefs");
+const cors = require('cors');
+const schema = require('./schema');
+const resolvers = require('./resolvers');
 
 const startServer = async () => {
   const app = express();
-
+  app.use(cors());
   const server = new ApolloServer({
-    typeDefs,
+    typeDefs:schema,
     resolvers
   });
 
   server.applyMiddleware({ app });
 
-  await mongoose.connect("mongodb://localhost:27017/test3", {
+  await mongoose.connect("mongodb://yc.i2u.top/graphqllearn", {
     useNewUrlParser: true
   });
 

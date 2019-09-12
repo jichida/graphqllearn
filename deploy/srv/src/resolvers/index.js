@@ -1,15 +1,10 @@
-const { Cat } = require("../models");
+import { GraphQLDateTime } from 'graphql-iso-date';
 
-exports.resolvers = {
-  Query: {
-    hello: () => "hi",
-    cats: () => Cat.find()
-  },
-  Mutation: {
-    createCat: async (_, { name }) => {
-      const kitty = new Cat({ name });
-      await kitty.save();
-      return kitty;
-    }
-  }
+import userResolvers from './user';
+import messageResolvers from './message';
+
+const customScalarResolver = {
+  Date: GraphQLDateTime,
 };
+
+export default [customScalarResolver, userResolvers, messageResolvers];
