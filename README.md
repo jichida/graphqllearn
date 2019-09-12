@@ -14,3 +14,5 @@ DEBUG=srv:* NODE_ENV=production configpath=//Users/wangxiaoqing/Downloads/work20
 
 
 DEBUG=srv:* NODE_ENV=development configpath=//Users/wangxiaoqing/Downloads/work201909/graphqllearn/deploy/scripts/config_local.json node index
+
+DEBUG=srv:* NODE_ENV=development configpath=/root/graphqllearn/deploy/scripts/config_prod.json pm2 start /root/graphqllearn/deploy/srv/index.js --name=srvgraphqllearn
