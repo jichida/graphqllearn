@@ -1,0 +1,35 @@
+@import '../common.less';
+
+.sign-forget-container {
+    .layout-column();
+    justify-content: flex-start;
+    align-items: center;
+
+    .common-navbar();
+
+    .form {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        width: 100%;
+        .form-list {
+            .common-list();
+            .list-labelwidth(105px);
+
+            :global(.am-input-extra) {
+                max-height: initial;
+                
+            }
+            .btn-send {
+                background-color: transparent;
+                color: @text-primary;
+            }
+        }
+    }
+
+    .submit {
+        width: 94%;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        .common-btn();
+    }
+}

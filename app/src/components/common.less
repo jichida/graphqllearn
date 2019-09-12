@@ -1,0 +1,512 @@
+@bgcolor-global: #0b1129;
+@bgcolor-primary: #151a37;
+@bgcolor-modal: #1a245c;
+
+@text-primary: #9da6cb;
+// @text-second: #414966;
+// @text-third: #454c6f;
+@text-second: #667099;
+@text-third: rgba(102, 112, 153, 0.3);
+@text-light: #44ccff;
+@text-success: #03c086;
+@text-fail: #ec4f3f;
+
+@button-increase: #03c086;
+@button-reduce: #ec4f3f;
+@button-selected: #1e2651;
+
+@splite-primary: rgba(255, 255, 255, 0.03);
+
+@height-topbar: 22px;
+
+// 全局modal
+.am-modal-content {
+    background-color: @bgcolor-modal !important;
+
+    .am-modal-title {
+        color: @text-primary;
+    }
+
+    .am-modal-body {
+        color: @text-primary;
+
+        .am-list-body {
+            background-color: transparent;
+
+            .am-list-item {
+                background-color: transparent;
+
+                .am-list-content {
+                    color: @text-primary;
+                }
+            }
+        }
+    }
+
+    .am-modal-button {
+        color: @text-primary !important;
+
+        &::before {
+            color: @text-second;
+        }
+    }
+}
+
+// mobile padding top
+.mobile-paddingtop(@height: 22px) {
+    padding-top: @height;
+}
+
+// ---------------------- Layout ----------------------//
+// Flex Column
+.layout-column() {
+    display: flex;
+    flex-direction: column;
+}
+
+// Flex Row
+.layout-row() {
+    display: flex;
+}
+
+// Flex Center
+.layout-center() {
+    justify-content: center;
+    align-items: center;
+}
+
+// ---------------------- margin ----------------------//
+.margin-lr(@length: 10px) {
+    margin-left: @length;
+    margin-right: @length;
+}
+
+.margin-tb(@length: 10px) {
+    margin-top: @length;
+    margin-bottom: @length;
+}
+
+// ---------------------- padding ----------------------//
+.padding-lr(@length: 10px) {
+    padding-left: @length;
+    padding-right: @length;
+}
+
+.padding-tb(@length: 10px) {
+    padding-top: @length;
+    padding-bottom: @length;
+}
+
+// ---------------------- Input -----------------------//
+.input-color(@text-color: @text-primary, @text-plactholder: @text-third) {
+    input {
+        color: @text-color;
+    }
+    input::-webkit-input-placeholder {
+        color: @text-plactholder;
+    }
+    input::-moz-placeholder {
+        color: @text-plactholder;
+    }
+    input:-ms-input-placeholder {
+        color: @text-plactholder;
+    }
+}
+
+// ---------------------- List ----------------------//
+.list-backgroundColor(@bg-color: @bgcolor-primary) {
+    .am-list-body {
+        background-color: @bg-color;
+
+        .am-list-item {
+            background-color: @bg-color;
+        }
+    }
+}
+
+//list - splite
+.list-same-splite(@splite-color: @bgcolor-primary) {
+    .am-list-body {
+        &::before {
+            background-color: @splite-color;
+        }
+        &::after {
+            background-color: @splite-color;
+        }
+
+        .am-list-line {
+            &::after {
+                background-color: @splite-color;
+            }
+        }
+    }
+}
+
+.list-middle-splite(@splite-color: @splite-primary) {
+    .am-list-body {
+        &::before {
+            background-color: @bgcolor-primary;
+        }
+        &::after {
+            background-color: @bgcolor-primary;
+        }
+
+        .am-list-line {
+            &::after {
+                background-color: @splite-color;
+            }
+        }
+    }
+}
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 2dppx) {
+    html:not([data-scale]) .am-list-body div:not(:last-child) .am-list-line::after {
+        background-color: @splite-primary;
+    }
+}
+
+
+// list inputitem text color
+.list-input-labeltext(@text-color: @text-primary) {
+    .am-list-item {
+        .am-input-label {
+            color: @text-color;
+        }
+
+        .am-input-control {
+            input {
+                color: @text-color;
+            }
+            input::-webkit-input-placeholder {
+                color: @text-third;
+            }
+            input::-moz-placeholder {
+                color: @text-third;
+            }
+            input:-ms-input-placeholder {
+                color: @text-third;
+            }
+        }
+    }
+}
+
+// list inputitem label width
+.list-labelwidth(@label-width: 120px) {
+    .am-list-item {
+        .am-input-label {
+            min-width: @label-width;
+        }
+    }
+}
+
+// list item
+.list-itemlabeltext(@label-color: @text-primary, @brief-color: @text-second) {
+    .am-list-line {
+        .am-list-content {
+            color: @label-color;
+
+            .am-list-brief {
+                .list-input-labeltext();
+            }
+        }
+    }
+}
+
+//list item
+.list-item-labelwidth(@label-width: 100px) {
+    .am-list-item {
+        .am-list-content {
+            max-width: @label-width;
+        }
+
+        .am-list-extra {
+            flex: 1;
+        }
+    }
+}
+
+.list-item-thumb(@width: 30px, @height: auto) {
+    .am-list-thumb {
+        img {
+            width: @width;
+            height: @height;
+        }
+    }
+}
+
+// list item extra
+.list-itemextralayout() {
+    .am-list-line {
+        .am-list-extra {
+            height: 100%;
+            box-sizing: border-box;
+        }
+    }
+}
+
+// list picker
+.list-picker(@label-color: @text-primary) {
+    .am-list-line {
+        .am-list-content {
+            color: @label-color;
+        }
+
+        .am-list-extra {
+            color: @label-color;
+        }
+    }
+}
+
+// list item picker in brief
+.list-pickerinbrief(@text-color: @text-second) {
+    .am-list-line {
+        justify-content: space-between;
+        .am-list-extra {
+            text-align: left;
+            color: @text-color;
+        }
+    }
+}
+
+// List -定制
+.common-list() {
+    .list-backgroundColor();
+    .list-middle-splite();
+    .list-input-labeltext();
+    .list-picker();
+}
+
+.common-item-list() {
+    .list-backgroundColor();
+    .list-middle-splite();
+    .list-itemlabeltext();
+}
+
+// list item input in brief
+.inputinbrief-list() {
+    .list-backgroundColor();
+    .list-middle-splite();
+    .list-itemlabeltext();
+    .am-list-brief {
+        .am-list-item {
+            padding-left: initial;
+        }
+        .am-list-line {
+            &::after {
+                background-color: initial;
+            }
+        }
+        
+    }
+}
+
+// ---------------------- Button ----------------------//
+.button-color(@bg-color: @bgcolor-primary, @text-color: @text-primary) {
+    .am-button {
+        background-color: @bg-color;
+        color: @text-color;
+        &::before {
+            border: 1px solid @bg-color;
+        }
+    }
+}
+
+// Button - 定制
+.common-btn() {
+    .button-color();
+}
+
+.second-btn() {
+    .button-color(@bgcolor-primary, @text-second);
+    .am-button {
+        font-weight: 550;
+        font-size: 16px;
+    }
+}
+
+// ---------------------- NavBar ----------------------//
+.navbar-color(@bg-color: @bgcolor-global, @text-color: @text-primary) {
+    .am-navbar {
+        background-color: @bg-color;
+        width: 100%;
+
+        .am-navbar-title {
+            color: @text-color;
+        }
+    }
+}
+
+.common-navbar() {
+    .navbar-color();
+}
+
+// ---------------------- CheckBox ----------------------//
+.checkbox-check(@bg-color: transparent, @border-radius: initial, @border-color: @text-primary) {
+    .am-checkbox-agree {
+        .am-checkbox-inner {
+            background: @bg-color;
+            border-radius: @border-radius;
+            border: 1px solid @border-color;
+        }
+    }
+}
+
+.checkbox-color(@text-color: @text-second) {
+    .am-checkbox-agree-label {
+        color: @text-color;
+    }
+}
+
+.common-checkbox() {
+    .checkbox-check();
+    .checkbox-color();
+}
+
+// ---------------------- TabBar ----------------------//
+.tabbar-color(@bg-color: @bgcolor-primary) {
+    .am-tab-bar-bar {
+        background-color: @bg-color;
+        &::before {
+            background-color: @bg-color;
+        }
+
+    }
+}
+
+.tabar-tab-tab-row() {
+    .am-tab-bar-tab {
+        flex-direction: row;
+
+        .am-tab-bar-tab-title {
+            margin: 0 0 0 5px;
+            font-size: 14px;
+        }
+    }
+}
+
+.tabbar-useful(@paddingtop: 22px) {
+    .am-tab-bar-item {
+        padding-top: @paddingtop;
+    }
+}
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 2dppx) {
+    html:not([data-scale]) .am-tab-bar-bar::before {
+        background-color: @bgcolor-primary;
+    }
+}
+
+.tabbar-fullscreen() {
+    height: 100vh; 
+}
+
+.tabbar-normal() {
+    position: relative;
+    min-height: 100vh;
+
+    ::-webkit-scrollbar {
+        width:0px;
+        height:0px;
+    }
+}
+
+// ---------------------- Tabs ----------------------//
+.tabs-color(@bg-color: transparent) {
+    .am-tabs {
+        .am-tabs-default-bar {
+            background-color: @bg-color !important;
+
+            .am-tabs-default-bar-tab-active {
+
+                &::after {
+                    background-color: @splite-primary;
+                }
+            }
+
+            .am-tabs-default-bar-underline {
+                border: none;
+            }
+        }
+    }
+}
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 2dppx) {
+    html:not([data-scale]) .am-tabs-default-bar-top .am-tabs-default-bar-tab::after {
+        background-color: @splite-primary;
+    }
+}
+
+.common-tabs() {
+    .tabs-color();
+}
+
+//------------------------------- Markdown ----------------------------------
+.md-container() {
+    h1 {
+        // font-size: 18px;
+        // line-height: 25px;
+        // font-weight: 550;
+        color: @text-primary;
+        // text-align: left;
+    }
+
+    h2 {
+        color: @text-primary;
+    }
+    h3 {
+        color: @text-primary;
+    }
+    h4 {
+        color: @text-primary;
+    }
+    h5 {
+        color: @text-primary;
+    }
+    h6 {
+        color: @text-primary;
+    }
+
+    p {
+        line-height: 25px;
+    }
+
+    code {
+        white-space: normal;
+    }
+
+    pre {
+        border: 1px solid @bgcolor-primary;
+    }
+
+    hr {
+        width:90%;
+        margin:0 auto;
+        border: 0;
+        height: 0;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    }
+      
+    blockquote {
+        color: @text-second;
+        margin: 0;
+        padding-left: 3em;
+        border-left: 0.5em @bgcolor-primary solid;
+    }
+    
+    tr {
+    border-top: 1px solid @splite-primary;
+    background: transparent;
+    }
+    
+    th,
+    td {
+    padding: 6px 13px;
+    border: 1px solid @splite-primary;
+    }
+    
+    table tr:nth-child(2n) {
+        background: @splite-primary;
+    }
+}
+

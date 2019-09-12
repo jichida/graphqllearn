@@ -1,0 +1,111 @@
+:global(.am-list-item) {
+    background-color: #eee;
+}
+
+:global(.list-view-section-body) {
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.chart-item{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+
+    .avatar-con{
+        width: 40px;
+
+        .avatar{
+            display: block;
+            width: 40px;
+            height: 40px;
+    
+            img{
+                height: 100%;
+                width: 100%;
+            }
+        }
+    }
+
+    /*消息内容*/
+    .chart-txt-con{
+        flex: 1;
+    }
+    /*别人的聊天记录*/
+    .chart-txt-con.other{
+        padding: 0 36px 0 10px;
+    }
+    /*自己的聊天记录*/
+    .chart-txt-con.own{
+        padding: 0 10px 0 36px;
+        text-align: right;
+    }
+    /*名字*/
+    .chart-txt-con .name{
+        display: block;
+        font-size: 12px;
+        color: #888;
+    }
+
+    /*聊天文本信息*/
+    .chart-txt-con .chart-txt {
+        max-width: 70vw;
+        word-wrap: break-word;
+        word-break: normal;
+        position: relative;
+        display: inline-block;
+        min-height: 22px;
+        line-height: 22px;
+        font-size: 16px;
+        color: #222;
+        padding: 9px 10px;
+        border-radius: 3px;
+        box-shadow: 0 0 1px #aaa;
+    }
+    /*别人的聊天文本*/
+    .chart-txt-con.other .chart-txt{
+        background-color: #fff;
+    }
+    .chart-txt-con.other .chart-txt:before{
+        content: "";
+        position: absolute;
+        display: block;
+        left: -4px;
+        top: 16px;
+        height: 8px;
+        width: 8px;
+        background: #fff;
+        transform:rotate(45deg);
+        box-shadow: -1px 1px 1px #ccc;
+    }
+    .chart-txt-con.other .chart-txt:active{
+        background-color: #f0f0f0;
+    }
+    /*自己的聊天文本*/
+    .chart-txt-con.own .chart-txt{
+        background-color: #9fe658;
+        text-align: left;
+    }
+    .chart-txt-con.own .chart-txt:before{
+        content: "";
+        position: absolute;
+        display: block;
+        right: -4px;
+        top: 16px;
+        height: 8px;
+        width: 8px;
+        background-color: #9fe658;
+        transform:rotate(45deg);
+        box-shadow: 1px -1px 1px #ccc;
+    }
+    .chart-txt-con.own .chart-txt:active{
+        background-color: #8dc356;
+    }
+    .chart-txt-con .chart-txt img{
+        width: 18px;
+        height: 18px;
+        margin: 0 2px -2px;
+    }
+    
+
+}

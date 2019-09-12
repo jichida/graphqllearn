@@ -1,0 +1,48 @@
+@import '../common.less';
+
+.sign-up-container {
+    .layout-column();
+    justify-content: flex-start;
+    align-items: center;
+
+    .common-navbar();
+
+    .form {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        width: 100%;
+        .form-list {
+            .common-list();
+            .list-labelwidth(105px);
+
+            :global(.am-input-extra) {
+                max-height: initial;
+                
+            }
+            .btn-send {
+                background-color: transparent;
+                color: @text-primary;
+            }
+        }
+    }
+
+    .agree {
+        width: 94%;
+        margin-top: 10px;
+        margin-bottom: 10px;
+
+        .common-checkbox();
+
+        :global(.am-checkbox-agree-label) {
+            font-size: 12px;
+            line-height: 25px;
+        }
+    }
+
+    .submit {
+        width: 94%;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        .common-btn();
+    }
+}
