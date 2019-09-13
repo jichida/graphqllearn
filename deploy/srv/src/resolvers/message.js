@@ -29,7 +29,7 @@ const fromCursorHash = string =>
 
       const hasNextPage = messages.length > limit;
       const edges = hasNextPage ? messages.slice(0, -1) : messages;
-
+      console.log(`edges:${edges.length},limit:${limit},messages.length:${messages.length},hasNextPage:${hasNextPage}`);
       return {
         edges,
         pageInfo: {
@@ -54,7 +54,7 @@ const fromCursorHash = string =>
           userId: me.id,
         });
 
-        pubsub.publish(EVENTS.MESSAGE.CREATED, {
+        pubsub.publish("CREATED", {
           messageCreated: { message },
         });
 

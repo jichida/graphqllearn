@@ -18,3 +18,9 @@ DEBUG=srv:* NODE_ENV=development configpath=//Users/wangxiaoqing/Downloads/work2
 
 远程：
 DEBUG=srv:* NODE_ENV=development configpath=/root/graphqllearn/deploy/scripts/config_prod.json pm2 start /root/graphqllearn/deploy/srv/index.js --name=srvgraphqllearn
+
+学习疑问：
+1、发生错误时,如何查看错误行
+2、分页机制
+3、subscription处理
+4、如何模拟客户端调试

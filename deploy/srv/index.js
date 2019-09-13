@@ -24,11 +24,11 @@ winston.getlog().info(`==程序启动${config.get('app:version')}`);
 
 const getMe = async req => {
   const token = req.headers['x-token'];
-  debug(token);
   if (!!token) {
     try {
       return await jwt.verify(token,tokensecret);
     } catch (e) {
+      debug(e);
       throw new AuthenticationError(
         'Your session expired. Sign in again.',
       );
@@ -48,6 +48,8 @@ const startServer = async () => {
     typeDefs:schema,
     resolvers,
     formatError: error => {
+      console.error(error);
+      debug(error);
       // remove the internal sequelize error message
       // leave only the important validation error
       const message = error.message
