@@ -3,6 +3,7 @@ https://github.com/benawad/graphql-mongo-server
 
 https://github.com/Ojvind/yggdrasil
 
+https://github.com/the-road-to-graphql/fullstack-apollo-react-boilerplate
 https://github.com/the-road-to-graphql/fullstack-apollo-express-mongodb-boilerplate
 https://github.com/the-road-to-graphql/fullstack-apollo-express-postgresql-boilerplate
 

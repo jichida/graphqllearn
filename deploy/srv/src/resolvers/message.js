@@ -1,6 +1,6 @@
 const {combineResolvers} =  require('graphql-resolvers');
 
-// import pubsub, { EVENTS } from '../subscription';
+const pubsub = require('../subscription');
 const { isAuthenticated, isMessageOwner } = require('./authorization');
 
 const toCursorHash = string => Buffer.from(string).toString('base64');
@@ -86,7 +86,7 @@ const fromCursorHash = string =>
 
   Subscription: {
     messageCreated: {
-      subscribe: () => pubsub.asyncIterator(EVENTS.MESSAGE.CREATED),
+      subscribe: () => pubsub.asyncIterator("CREATED"),
     },
   },
 };

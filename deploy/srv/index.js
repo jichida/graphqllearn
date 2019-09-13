@@ -1,4 +1,5 @@
 const { ApolloServer, gql } =  require("apollo-server-express");
+const { AuthenticationError } = require('apollo-server');
 const express =  require("express");
 const mongoose =  require( "mongoose");
 const cors = require('cors');
@@ -62,7 +63,7 @@ const startServer = async () => {
           models,
           loaders: {
             user: new DataLoader(keys =>
-              loaders.user.batchUsers(keys, models),
+              loaders.batchUsers(keys, models),
             )
           },
         };
@@ -77,7 +78,7 @@ const startServer = async () => {
           secret:tokensecret,
           loaders: {
             user: new DataLoader(keys =>
-              loaders.user.batchUsers(keys, models),
+              loaders.batchUsers(keys, models),
             )
           },
         };
@@ -86,6 +87,7 @@ const startServer = async () => {
   });
 
   server.applyMiddleware({ app, path: '/graphql' });
+
   const httpServer = http.createServer(app);
   server.installSubscriptionHandlers(httpServer);
 
@@ -94,7 +96,7 @@ const startServer = async () => {
 
   debug(`start server:${config.get('app:listenport')}`);
 
-    app.listen({ port:config.get('app:listenport')}, ()=>{
+  httpServer.listen({ port:config.get('app:listenport')}, ()=>{
       ////console.log('listening on *:' + config.listenport);
       winston.getlog().info(`start server:${config.get('app:listenport')},http://localhost:4000${server.graphqlPath}`);
     });
