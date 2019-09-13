@@ -1,5 +1,5 @@
 const {combineResolvers} =  require('graphql-resolvers');
-
+const debug = require('debug')('srv:resolver');
 const pubsub = require('../subscription');
 const { isAuthenticated, isMessageOwner } = require('./authorization');
 
@@ -18,6 +18,7 @@ const fromCursorHash = string =>
             },
           }
         : {};
+        debug(cursorOptions);
       const messages = await models.Message.find(
         cursorOptions,
         null,
@@ -26,18 +27,23 @@ const fromCursorHash = string =>
           limit: limit + 1,
         },
       );
-
+      debug(`cursor:${cursor}`)
       const hasNextPage = messages.length > limit;
       const edges = hasNextPage ? messages.slice(0, -1) : messages;
-      console.log(`edges:${edges.length},limit:${limit},messages.length:${messages.length},hasNextPage:${hasNextPage}`);
-      return {
+   
+      debug(`edges:${edges.length},limit:${limit},messages.length:${messages.length},hasNextPage:${hasNextPage}`);
+
+      const endCursor  = toCursorHash(
+        edges[edges.length - 1].createdAt.toString(),
+      );
+
+      debug(`endCursor:${endCursor}`)
+       return {
         edges,
         pageInfo: {
           hasNextPage,
-          endCursor: toCursorHash(
-            edges[edges.length - 1].createdAt.toString(),
-          ),
-        },
+          endCursor
+        }
       };
     },
     message: async (parent, { id }, { models }) => {
