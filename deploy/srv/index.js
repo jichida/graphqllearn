@@ -1,5 +1,6 @@
 const { ApolloServer, gql } =  require("apollo-server-express");
 const { AuthenticationError } = require('apollo-server');
+const jwt = require('jsonwebtoken');
 const express =  require("express");
 const mongoose =  require( "mongoose");
 const cors = require('cors');
@@ -18,11 +19,12 @@ winston.initLog();
 const uri = config.get('app:MONGO_URL');
 const tokensecret = config.get('app:tokensecret');
 
-debug(`==程序启动${config.get('app:version')},uris:${uri}`);
+debug(`==程序启动${config.get('app:version')},uris:${uri},tokensecret:${tokensecret}`);
 winston.getlog().info(`==程序启动${config.get('app:version')}`);
 
 const getMe = async req => {
   const token = req.headers['x-token'];
+  debug(token);
   if (!!token) {
     try {
       return await jwt.verify(token,tokensecret);
@@ -148,5 +150,6 @@ try{
   startServer();
 }
 catch(e){
+  debug(`get error--->`);
   debug(e);
 }
