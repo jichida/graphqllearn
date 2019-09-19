@@ -24,3 +24,5 @@ DEBUG=srv:* NODE_ENV=development configpath=/root/graphqllearn/deploy/scripts/co
 2、分页机制
 3、subscription处理
 4、如何模拟客户端调试
+=====
+1、分页中如何定义自定义参数
