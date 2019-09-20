@@ -5,7 +5,7 @@
   "main": "dist/server.js",
   "scripts": {
     "build": "babel ./src -d ./dist",
-    "dev": "DEBUG=srv:* configpath=//Users/wangxiaoqing/Downloads/work201909/graphqllearn/deploy/scripts/config_local.json nodemon --exec babel-node src/server.js",
+    "dev": "DEBUG=srv:* configpath=/Users/wangxiaoqing/Downloads/work201909/graphqllearn/deploy/scripts/configadmin_local.json nodemon --exec babel-node src/server.js",
     "start": "node ./dist/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

@@ -6,6 +6,8 @@ import winston from './log';
 import debugx from 'debug';
 import http from 'http';
 
+import initDB from './db/dbinit';
+
 import useradmin from './router/useradmin.js';
 import useradmincustom from './router/useradmincustom.js';
 
@@ -20,13 +22,13 @@ const startServer = async () => {
     await mongoose.connect(uri, {
       useNewUrlParser: true,useFindAndModify: false  });
   
-      
+    await initDB();
     const app = express();
     app.use(cors());
     
     useradmin(app);
     useradmincustom(app);
-    
+
     const httpServer = http.createServer(app);
     httpServer.listen({ port:config.get('app:listenport')}, ()=>{
         ////console.log('listening on *:' + config.listenport);

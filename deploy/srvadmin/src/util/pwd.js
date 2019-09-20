@@ -32,5 +32,5 @@ const checkPassword =async  (password,passwordsalt,checkedpassword)=>{
 }
 
 
-export {hashPasswordAsync,getsalt,checkPassword};
+export default {hashPasswordAsync,getsalt,checkPassword};
 
