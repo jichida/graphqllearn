@@ -5,7 +5,7 @@ import config from './config';
 import winston from './log';
 import debugx from 'debug';
 import http from 'http';
-
+import bodyParser from 'body-parser';
 import initDB from './db/dbinit';
 
 import useradmin from './router/useradmin.js';
@@ -25,6 +25,9 @@ const startServer = async () => {
     await initDB();
     const app = express();
     app.use(cors());
+    app.use(bodyParser.json({limit: '200mb'}));
+    app.use(bodyParser.urlencoded({limit: '200mb', extended: true}))
+  
     
     useradmin(app);
     useradmincustom(app);

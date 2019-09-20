@@ -3,7 +3,7 @@ import config from '../config';
 import pwd from '../util/pwd.js';
 import DBModels from '../db/index.js';
 
-const loginuserexptime = `${config.get('app:loginuserexptime')}` ;
+const loginuserexptime = config.get('app:loginuserexptime');
 const secretkey = `${config.get('app:secretkey')}` ;
 
 const adminauth = async (req,res)=>{

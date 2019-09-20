@@ -1,6 +1,5 @@
 import customSaga from './customSaga';
-import singleDoucmentPageSaga from './components/singledocumentpage/saga.js';
-
+import singleDoucmentPageSaga from './components/singlerecordpage/saga.js';
 
 export default [
   singleDoucmentPageSaga,
