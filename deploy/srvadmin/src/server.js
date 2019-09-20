@@ -6,6 +6,9 @@ import winston from './log';
 import debugx from 'debug';
 import http from 'http';
 
+import useradmin from './router/useradmin.js';
+import useradmincustom from './router/useradmincustom.js';
+
 const debug = debugx('srv:start');
 const uri = config.get('app:MONGO_URL');
 
@@ -20,6 +23,9 @@ const startServer = async () => {
       
     const app = express();
     app.use(cors());
+    
+    useradmin(app);
+    useradmincustom(app);
     
     const httpServer = http.createServer(app);
     httpServer.listen({ port:config.get('app:listenport')}, ()=>{
