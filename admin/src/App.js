@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Admin, Resource } from "react-admin";
+import React, { Component, Suspense, lazy }  from 'react';
+// import { Admin, Resource } from "react-admin";
 
 import dataProvider from './dataProvider.js';
 import authProvider from './authProvider.js';
@@ -13,11 +13,11 @@ import { reducer as tree } from 'ra-tree-ui-materialui';
 import { Dashboard } from './Dashboard.js';
 //import CustomRoutes from './routes';
 import translations from './i18n';
-import singledocumentpage from './components/singledocumentpage/reducer';
-import systemconfigreducer from './components/systemconfig/reducer';
+import singlerecordpage from './components/singlerecordpage/reducer';
+
 //import themeReducer from './themeReducer.js';
 //import menu from './menu/reducer';
-
+import customRoutes from './customRoutes';
 import Widgets from '@material-ui/icons/Widgets' //系统设置
 import { SystemconfigList } from './components/systemconfig/index.js';
 import {AddressconstCreate,AddressconstList,AddressconstEdit} from './components/addressconst';
@@ -45,6 +45,8 @@ import {RecommendHistoryList,RecommendHistoryEdit} from './components/recommendh
 import {WithdrawcashList,WithdrawcashEdit} from './components/withdrawcash/index';
 import {TagCreate,TagList,TagEdit} from './components/tag';
 import {LinkCreate,LinkList,LinkEdit} from './components/website/link';
+const  Admin= lazy(() => import('./react_admin_admin'));
+const  Resource= lazy(() => import('./react_admin_resource'));
 
 const i18nProvider = locale => translations[locale];
 
@@ -52,17 +54,16 @@ const i18nProvider = locale => translations[locale];
 class App extends Component {
   render() {
     return (
+      <Suspense fallback={<div>Loading...</div>}>
       <Admin dataProvider = {dataProvider}
       title = "爱上门APP管理后台"
       authProvider = {authProvider}
       customReducers = {{
-        tree,
-        systemconfig: systemconfigreducer,
-        singledocumentpage,
+        singlerecordpage,
       }}
+      customRoutes={customRoutes}
       customSagas = {sagas}
       menu={Menu}
-      dashboard = {Dashboard}
       locale = "cn"
       i18nProvider = {i18nProvider}
       >
@@ -96,6 +97,7 @@ class App extends Component {
         ]}
       }
       </Admin>
+      </Suspense>
     );
   }
 }

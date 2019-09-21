@@ -23,14 +23,14 @@ import {
 }
 */
 class Page extends Component {
-  componentWillMount() {
+  componentDidMount() {
     const { dispatch, resource } = this.props;
     findOneAction({ resource }, dispatch);
   }
 
 
     renderCreate = () => {
-      const { isLoading,title, ...rest } = this.props;
+      const { isLoading,title,isget,dispatch, ...rest } = this.props;
       return (
         <Create title={title}
           actions={null}
@@ -74,7 +74,7 @@ class Page extends Component {
     //   2、里面是Form
     //   3、根据记录个数，判断是新增还是编辑
     // </div>);
-    if (!isget) {
+    if (isget === false) {
       return this.renderCreate();
     }
 
@@ -82,8 +82,9 @@ class Page extends Component {
   }
 }
 
-const mapStateToProps = ({ singledocumentpage }, props) => {
-  const { mapdata } = singledocumentpage;
+const mapStateToProps = (state, props) => {
+  console.log(state);
+  const { mapdata } = state.singlerecordpage;
   const dataobj = _.get(mapdata, props.resource, {
     isLoading: true,
     isget: false,
