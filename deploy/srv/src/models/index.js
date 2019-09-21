@@ -1,3 +1,6 @@
-const mongoose = require("mongoose");
+// const mongoose = require("mongoose");
+const User = require('./user');
+const Message = require('./message');
 
-exports.Cat = mongoose.model("Cat", { name: String });
+exports.User = User;
+exports.Message = Message;

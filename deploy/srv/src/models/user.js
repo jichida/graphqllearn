@@ -15,7 +15,7 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true,
-    minlength: 3,
+    minlength: 7,
     maxlength: 42,
   },
   role: {
@@ -35,6 +35,10 @@ userSchema.statics.findByLogin = async function(login) {
   return user;
 };
 
+userSchema.pre('remove', function(next) {
+  this.model('Message').deleteMany({ userId: this._id }, next);
+});
+
 userSchema.pre('save', async function() {
   this.password = await this.generatePasswordHash();
 });
@@ -43,10 +47,12 @@ userSchema.methods.generatePasswordHash = async function() {
   const saltRounds = 10;
   return await bcrypt.hash(this.password, saltRounds);
 };
+
 userSchema.methods.validatePassword = async function(password) {
   return await bcrypt.compare(password, this.password);
 };
 
 const User = mongoose.model('User', userSchema);
 
-export default User;
+
+module.exports = User;

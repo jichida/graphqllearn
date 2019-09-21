@@ -1,0 +1,44 @@
+{
+  "name": "admin",
+  "version": "0.1.0",
+  "private": true,
+  "homepage": ".",
+  "dependencies": {
+    "@material-ui/core": "~1.5.1",
+    "axios": "^0.18.1",
+    "jwt-decode": "^2.2.0",
+    "lodash.get": "^4.4.2",
+    "lodash.map": "^4.6.0",
+    "moment": "^2.24.0",
+    "prop-types": "^15.6.2",
+    "qrcode.react": "^0.9.3",
+    "ra-core": "^2.9.6",
+    "ra-input-markdown": "^1.0.0",
+    "ra-language-english": "^2.6.1",
+    "ra-tree-ui-materialui": "^2.6.0",
+    "react": "^16.8.1",
+    "react-admin": "^2.9.6",
+    "react-dom": "^16.8.1",
+    "react-mde": "^7.3.4",
+    "react-redux": "~5.0.7",
+    "react-scripts": "2.0.4",
+    "recompose": "^0.30.0",
+    "showdown": "^1.9.0"
+  },
+  "scripts": {
+    "buildcp": "npm run build && cp -r build/. ../deploy/dist/admin && rm -R build",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+    "app": {
+      "version":"1.0.0",
+      "secretkey":"SECRET",
+      "MONGO_URL":"mongodb://yc.i2u.top/asmb2c",
+      "listenport":4001,
+      "loginuserexptime":20000,
+      "logdir":"/Users/wangxiaoqing/Downloads/work201909/graphqllearn/deploy/dist/log",
+      "name":"asmb2c"
+    }
+
+  }
+  
