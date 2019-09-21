@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl'
 import { useMutation } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 import './index.less'
-import Container from '../../component/container'
+import Container from '../../controls/container'
 import RenderForm from './renderForm'
 
 const ChangePassword = gql`

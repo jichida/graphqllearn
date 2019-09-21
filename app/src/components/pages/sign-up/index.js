@@ -4,7 +4,7 @@ import { NavBar, Icon } from 'antd-mobile'
 import { FormattedMessage } from 'react-intl'
 import './index.less'
 import RenderForm from './renderForm'
-import Container from '../../component/container'
+import Container from '../../controls/container'
 import { useMutation } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 

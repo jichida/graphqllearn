@@ -5,10 +5,10 @@ import { withRouter } from 'react-router-dom'
 import { NavBar, Toast } from 'antd-mobile'
 import { useIntl, FormattedMessage } from 'react-intl'
 import './index.less'
-import Container from '../../component/container'
+import Container from '../../controls/container'
 import RenderForm from './renderForm'
-import SelectLanguage from '../../component/language'
-import BackToExit from '../../component/backToExitApp'
+import SelectLanguage from '../../controls/language'
+import BackToExit from '../../controls/backToExitApp'
 
 const SignIn = gql`
   mutation SignIn($email: String!, $password: String!) {

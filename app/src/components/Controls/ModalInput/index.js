@@ -1,6 +1,6 @@
-import React from 'react'
-import { injectIntl } from 'react-intl'
-import { Modal, Icon, Toast } from 'antd-mobile'
+import React from './node_modules/react'
+import { injectIntl } from './node_modules/react-intl'
+import { Modal, Icon, Toast } from './node_modules/antd-mobile'
 import './index.less'
 
 class Index extends React.Component {
