@@ -1,6 +1,6 @@
-@import '../common.less';
+@import '../../common.less';
 
-.sign-forget-container {
+.sign-in-container {
     .layout-column();
     justify-content: flex-start;
     align-items: center;
@@ -13,16 +13,6 @@
         width: 100%;
         .form-list {
             .common-list();
-            .list-labelwidth(105px);
-
-            :global(.am-input-extra) {
-                max-height: initial;
-                
-            }
-            .btn-send {
-                background-color: transparent;
-                color: @text-primary;
-            }
         }
     }
 
@@ -31,5 +21,19 @@
         margin-top: 10px;
         margin-bottom: 10px;
         .common-btn();
+    }
+
+    .info {
+        width: 94%;
+        .layout-row();
+        margin-top: 10px;
+        justify-content: space-between;
+        color: @text-primary;
+
+        .info-btn {
+            &:hover {
+                cursor: pointer;
+            }
+        }
     }
 }

@@ -5,7 +5,7 @@ import Spin from 'antd/es/spin';
 
 import {requireAuthentication} from './requireauthentication';
 
-import SignForget from './sign-forget'
+import SignForget from './pages/sign-forget'
 // import Index from './index-container'
 // import Arbitrage from './money-arbitrage'
 // import Arbitraging from './money-arbitraging'
@@ -38,8 +38,8 @@ import SignForget from './sign-forget'
 // import MyAbout from './my-about'
 
 
-const SignIn = withRouter(lazy(() => import('./sign-in')));
-const SignUp =  withRouter(lazy(() => import('./sign-up')));
+const SignIn = withRouter(lazy(() => import('./pages/sign-in')));
+const SignUp =  withRouter(lazy(() => import('./pages/sign-up')));
 // const SignUpSuccess =  withRouter(lazy(() => import('./sign-up-success')));
 // const SignUpAgreement =  withRouter(lazy(() => import('./sign-up-agreement')));
 
@@ -90,7 +90,7 @@ const loadingStyle = {
     height: '100vh'
 }
 
-const AppRoot = ({dispatch}) => {
+const AppRoot = (props) => {
 
   return (
     <div style={rootStyle} >

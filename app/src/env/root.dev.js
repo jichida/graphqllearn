@@ -1,12 +1,12 @@
-﻿import React, { useContext } from 'react';
+﻿import React from 'react'
+import lodashGet from 'lodash.get'
 import { Route, BrowserRouter as Router } from 'react-router-dom'
 import { LocaleProvider } from 'antd-mobile'
+import { ApolloProvider, useQuery } from '@apollo/react-hooks'
+import { GetLocale } from '../components/component/app'
+import { useStatusBarHeight } from './hooks/hookstatusbarheight'
 import AppRoot from '../components/approot.js'
-import { ApolloProvider } from '@apollo/react-hooks'
-import ApolloClient from 'apollo-boost'
-import config from './config'
-import { AppContextWrap, AppContext } from '../contexts/app'
-import { UserloginContextWrap } from '../contexts/userlogin'
+import initApollo from './apollo'
 
 import enUS from 'antd-mobile/lib/locale-provider/en_US'
 // import zhTW from 'antd-mobile/lib/locale-provider/en_US'
@@ -15,10 +15,6 @@ import enUS from 'antd-mobile/lib/locale-provider/en_US'
 import { IntlProvider } from 'react-intl'
 import MessageProvider from '../locales/MessageProvider'
 
-const apolloClient = new ApolloClient({
-  uri: config.serverurl
-})
-
 const languages = {
   'zh-cn': undefined,
   'zh-tw': undefined,
@@ -26,30 +22,39 @@ const languages = {
 }
 
 const ChildRoot = (props)=>{
-  const { app: { locale = 'zh-cn' }} = useContext(AppContext)
+  // const { data: { locale } } = useQuery(GetLocale)
+  const locale = 'zh-cn'
 
   return (
-    <ApolloProvider client={apolloClient}>
-    <IntlProvider locale={locale} messages={MessageProvider(locale)}>
-      <div>
-          <Router>
-            <LocaleProvider locale={languages[locale]}>
-              <Route path="/" component={AppRoot}/>
-            </LocaleProvider>
-          </Router>
-      </div>
-    </IntlProvider>
-    </ApolloProvider>
+      <IntlProvider locale={locale} messages={MessageProvider(locale)}>
+        <div>
+            <Router>
+              <LocaleProvider locale={languages[locale]}>
+                <Route path="/" component={AppRoot}/>
+              </LocaleProvider>
+            </Router>
+        </div>
+      </IntlProvider>
   )
 }
 
-const Root = (props)=>
-    (
-      <AppContextWrap>
-        <UserloginContextWrap>
-          <ChildRoot />
-        </UserloginContextWrap>
-      </AppContextWrap>
-    )
+const Root = (props) => {
+  const statusbarInfo = useStatusBarHeight()
+  const initState = {
+    locale: 'zh-cn',
+    maintabIndex: 0,
+    statusbar: lodashGet(statusbarInfo, 'data.statusBarHeight', 22),
+  }
+
+  const apolloClient = initApollo(initState)
+
+  console.log(apolloClient)
+
+  return (
+    <ApolloProvider client={apolloClient}>
+        <ChildRoot />
+    </ApolloProvider>
+  )
+}
 
 export default Root;

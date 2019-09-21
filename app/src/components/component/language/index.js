@@ -1,20 +1,16 @@
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
+import { useQuery } from '@apollo/react-hooks'
 import { Modal, List } from 'antd-mobile'
-// import { set_locale } from '../../actions'
-import { AppContext, set_locale } from '../../contexts/app'
-import './languageSelect.less'
+import { GetLocale } from '../app'
+import './index.less'
 
 const Index = ({visible}) => {
-    const { dispatch } = useContext(AppContext)
     const [ modalVisible, setModalVisible ] = useState(visible)
+    // const { data, client } = useQuery(GetLocale)
 
     const handleSelect = (locale) => {
         setModalVisible(false)
-        // dispatch(set_locale(locale))
-        dispatch({
-            type: set_locale,
-            payload: locale
-        })
+        // client.writeData({data: {locale}})
     }
 
     return (
