@@ -7,10 +7,10 @@ import {
     translate,
     DashboardMenuItem,
     MenuItemLink,
-    // Responsive,
 } from 'react-admin';
 import { withRouter } from 'react-router-dom';
 
+//https://material.io/tools/icons/?style=baseline
 import Csystemconfig from '@material-ui/icons/Settings' //系统设置
 import Cshop from '@material-ui/icons/Store' //商铺
 import Ctypeofwork from '@material-ui/icons/Gavel' //工种
@@ -47,7 +47,6 @@ const items = [
 
 const Menu = ({ onMenuClick, translate, logout }) => (
     <div>
-        <DashboardMenuItem onClick={onMenuClick} />
         {items.map(item => (
             <MenuItemLink
                 key={item.name}
