@@ -1,0 +1,35 @@
+@import '../../common.less';
+
+.personal-container {
+    .layout-column();
+    justify-content: flex-start;
+    align-items: center;
+    // padding-top: 22px;
+
+    .common-navbar();
+    .save-link {
+        color: @text-primary;
+    }
+
+    .form {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        width: 100%;
+        .form-list {
+            .inputinbrief-list();
+            // .list-itemextralayout();
+            .list-pickerinbrief();
+            .list-item-labelwidth();
+
+            :global(.am-list-line ) {
+                .am-list-extra {
+                    text-align: right;
+                }
+            }
+        }
+
+        
+    }
+
+    
+}
