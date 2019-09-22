@@ -27,7 +27,7 @@ export default  {
   },
 
   Mutation: {
-    signIn: async (
+    signin: async (
       parent,
       { phonenumber, authcode },
       { models,secret,globalUserauth },
@@ -40,7 +40,7 @@ export default  {
         }
       }
 
-      if(globalUserauthAuthcode !== authcode){
+      if(globalUserauth[phonenumber].authcode !== authcode){
         return {
           islogin:false,
           msg:'验证码错误'
@@ -52,15 +52,18 @@ export default  {
       const token = createToken(user, secret, '30m');
       return {
         islogin:true, 
-        token,
-        UserInfo:user
+        token:token,
+        loginuserinfo:{
+          _id:user._id,
+          phonenumber:user.phonenumber
+        }
        };
     },
 
     sendauth: async (
       parent,
       { phonenumber, authtype },
-      { models, secret },
+      { globalUserauth },
     ) => {
       const nowDate = new Date();
       if(!!globalUserauth[phonenumber]){
@@ -73,18 +76,18 @@ export default  {
           }
 
           let min2Ago = new Date(nowDate.getTime() - 1000 * config.get('app:authexptime'));
-          if(min2Ago > globalUserauth[userAuth.phonenumber].updated_at){
+          if(min2Ago > globalUserauth[phonenumber].updated_at){
               //resend
-              globalUserauth[userAuth.phonenumber].authcode = chance.string({length: 4,pool: '0123456789'});
-              globalUserauth[userAuth.phonenumber].updated_at = nowDate;
+              globalUserauth[phonenumber].authcode = chance.string({length: 4,pool: '0123456789'});
+              globalUserauth[phonenumber].updated_at = nowDate;
           }
       }
       else {
-          globalUserauth[userAuth.phonenumber] = {};
-          globalUserauth[userAuth.phonenumber].authcode = chance.string({length: 4, pool: '0123456789'});
-          globalUserauth[userAuth.phonenumber].updated_at = nowDate;
+          globalUserauth[phonenumber] = {};
+          globalUserauth[phonenumber].authcode = chance.string({length: 4, pool: '0123456789'});
+          globalUserauth[phonenumber].updated_at = nowDate;
       }
-      const message = `email is :${userAuth.email},验证码为:${globalUserauth[userAuth.email].authcode},请在${config.get('app:authexptime')}秒内登录,过期无效!`;
+      const message = `phonenumber is :${phonenumber},验证码为:${globalUserauth[phonenumber].authcode},请在${config.get('app:authexptime')}秒内登录,过期无效!`;
       // debug(message);
       //发送邮件
       // const jobparam = {

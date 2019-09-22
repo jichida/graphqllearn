@@ -1,5 +1,5 @@
 // const mongoose = require("mongoose");
-const User = require('./user');
-const Message = require('./message');
+import User from './user';
+import Message from './message';
 
-export {User,Message};
+export default {User,Message};

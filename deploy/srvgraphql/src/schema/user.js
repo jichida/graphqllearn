@@ -6,7 +6,7 @@ export default gql`
   }
 
   extend type Mutation {
-    signIn(phonenumber: String!, authcode: String!): LoginResult!
+    signin(phonenumber: String!, authcode: String!): LoginResult!
     signinwithtoken(token: String!, tokentype: String!): LoginResult!
     sendauth(phonenumber: String!,authtype:String!): AuthtypeResult!
     fillprofile(username:String!):UserInfo!
@@ -15,7 +15,7 @@ export default gql`
   type LoginResult {
     islogin: Boolean!
     msg:String,
-    tokening: String,
+    token: String,
     loginuserinfo:UserInfo
   }
 
