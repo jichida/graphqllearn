@@ -1,8 +1,8 @@
 import React from 'react'
 import config from '../../../env/config.js'
 import FineUploaderTraditional from 'fine-uploader-wrappers'
-import Gallery from './MobileImageUpload/gallery'
-import './MobileImageUpload/gallery/gallery.css'
+import Gallery from './mobileImageUpload/gallery'
+import './mobileImageUpload/gallery/gallery.css'
 import { xviewUploadImage } from '../../../env/selphoto'
 import WxImageViewer from 'react-wx-images-viewer'
 
