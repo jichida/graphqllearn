@@ -26,6 +26,7 @@ const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
 const ForkTsCheckerWebpackPlugin = require('react-dev-utils/ForkTsCheckerWebpackPlugin');
 const typescriptFormatter = require('react-dev-utils/typescriptFormatter');
 const eslint = require('eslint');
+const theme = require('../package.json').theme;
 
 const postcssNormalize = require('postcss-normalize');
 
@@ -139,17 +140,13 @@ module.exports = function(webpackEnv) {
             loader: require.resolve(preProcessor),
             options: {
               sourceMap: isEnvProduction && shouldUseSourceMap,
-              modifyVars: { // 修稿主题颜色
-                // 'color-text-base': '#000000',
-                // 'brand-primary': '#000000',
-                // 'primary-color': '#000',
-              },
+              modifyVars: theme,
               javascriptEnabled: true // 解决上文报错
             },
           }
         );
       } else {
-        loaders.push(
+      loaders.push(
           {
             loader: require.resolve('resolve-url-loader'),
             options: {
@@ -303,7 +300,10 @@ module.exports = function(webpackEnv) {
       },
       // Keep the runtime chunk separated to enable long term caching
       // https://twitter.com/wSokra/status/969679223278505985
-      runtimeChunk: true,
+      // https://github.com/facebook/create-react-app/issues/5358
+      runtimeChunk: {
+        name: entrypoint => `runtime-${entrypoint.name}`,
+      },
     },
     resolve: {
       // This allows you to set a fallback for where Webpack should look for modules.
@@ -360,6 +360,7 @@ module.exports = function(webpackEnv) {
           use: [
             {
               options: {
+                cache: true,
                 formatter: require.resolve('react-dev-utils/eslintFormatter'),
                 eslintPath: require.resolve('eslint'),
                 resolvePluginsRelativeTo: __dirname,
@@ -418,7 +419,8 @@ module.exports = function(webpackEnv) {
                 // It enables caching results in ./node_modules/.cache/babel-loader/
                 // directory for faster rebuilds.
                 cacheDirectory: true,
-                cacheCompression: isEnvProduction,
+                // See #6846 for context on why cacheCompression is disabled
+                cacheCompression: false,
                 compact: isEnvProduction,
               },
             },
@@ -439,7 +441,8 @@ module.exports = function(webpackEnv) {
                   ],
                 ],
                 cacheDirectory: true,
-                cacheCompression: isEnvProduction,
+                // See #6846 for context on why cacheCompression is disabled
+                cacheCompression: false,
                 
                 // If an error happens in a package, it's possible to be
                 // because it was compiled. Thus, we don't want the browser
@@ -517,6 +520,7 @@ module.exports = function(webpackEnv) {
               test: lessRegex,
               exclude: lessModuleRegex,
               use: getStyleLoaders({ importLoaders: 2 }, 'less-loader'), // 注意第二个参数
+              include: /node_modules/,
             },
             {
               test: lessModuleRegex,
@@ -528,6 +532,7 @@ module.exports = function(webpackEnv) {
                 },
                 'less-loader' // 注意第二个参数
               ),
+              include: /node_modules/
             },
             // "file" loader makes sure those assets get served by WebpackDevServer.
             // When you `import` an asset, you get its (virtual) filename.
@@ -580,9 +585,10 @@ module.exports = function(webpackEnv) {
       ),
       // Inlines the webpack runtime script. This script is too small to warrant
       // a network request.
+      // https://github.com/facebook/create-react-app/issues/5358
       isEnvProduction &&
         shouldInlineRuntimeChunk &&
-        new InlineChunkHtmlPlugin(HtmlWebpackPlugin, [/runtime~.+[.]js/]),
+        new InlineChunkHtmlPlugin(HtmlWebpackPlugin, [/runtime-.+[.]js/]),
       // Makes some environment variables available in index.html.
       // The public URL is available as %PUBLIC_URL% in index.html, e.g.:
       // <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
@@ -682,7 +688,6 @@ module.exports = function(webpackEnv) {
             '!**/src/setupProxy.*',
             '!**/src/setupTests.*',
           ],
-          watch: paths.appSrc,
           silent: true,
           // The formatter is invoked directly in WebpackDevServerUtils during development
           formatter: isEnvProduction ? typescriptFormatter : undefined,

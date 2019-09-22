@@ -4,8 +4,7 @@ import { GetStatusbar } from '../app'
 import { useQuery } from '@apollo/react-hooks'
 
 const Index = (props) => {
-    // const { data: { statusbar }} = useQuery(GetStatusbar)
-    const statusbar = 22
+    const { data: { statusbar }} = useQuery(GetStatusbar)
     const class_name = lodashGet(props, 'className', '')
     const customTop = lodashGet(props, 'top', 0) // 额外距离顶部位置
     const style = {

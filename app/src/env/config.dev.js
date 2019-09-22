@@ -20,5 +20,15 @@ let config = {
     softmode:'app'
 };
 
+export const initState = {
+    locale: 'zh-cn',
+    maintabIndex: 0,
+    statusbar: 22,
+}
+
+export const resolvers = {}
+
+export const typeDefs = {}
+
 
 export default config;

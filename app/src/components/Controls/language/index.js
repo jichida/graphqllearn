@@ -6,11 +6,11 @@ import './index.less'
 
 const Index = ({visible}) => {
     const [ modalVisible, setModalVisible ] = useState(visible)
-    // const { data, client } = useQuery(GetLocale)
+    const { data, client } = useQuery(GetLocale)
 
     const handleSelect = (locale) => {
         setModalVisible(false)
-        // client.writeData({data: {locale}})
+        client.writeData({data: {locale}})
     }
 
     return (
