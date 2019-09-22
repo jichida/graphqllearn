@@ -24,6 +24,8 @@ const tokensecret = config.get('app:tokensecret');
 debug(`==程序启动${config.get('app:version')},uris:${uri},tokensecret:${tokensecret}`);
 winston.getlog().info(`==程序启动${config.get('app:version')}`);
 
+let globalUserauth = {};
+
 const getMe = async req => {
   const token = req.headers['x-token'];
   if (!!token) {
@@ -66,6 +68,7 @@ const startServer = async () => {
     context: async ({ req, connection }) => {
       if (connection) {
         return {
+          globalUserauth,
           models,
           loaders: {
             user: new DataLoader(keys =>
@@ -79,6 +82,7 @@ const startServer = async () => {
         const me = await getMe(req);
   
         return {
+          globalUserauth,
           models,
           me,
           secret:tokensecret,

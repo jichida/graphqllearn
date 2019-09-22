@@ -21,7 +21,7 @@ export default  gql`
     id: ID!
     text: String!
     createdAt: Date!
-    user: User!
+    user: UserInfo!
   }
   extend type Subscription {
     messageCreated: MessageCreated!

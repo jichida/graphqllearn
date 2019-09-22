@@ -3,6 +3,7 @@
       "version":"1.0.0",
       "listenport":4000,
       "tokensecret":"SECRET",
+      "authexptime":120,
       "MONGO_URL":"mongodb://yc.i2u.top/graphqllearn",
       "logdir":"/Users/wangxiaoqing/Downloads/work201909/graphqllearn/deploy/dist/log",
       "name":"graphqllearn"
