@@ -1,6 +1,7 @@
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
 import img_error from './error.png'
+import './index.less'
 
 const Index = (props) => {
     return (

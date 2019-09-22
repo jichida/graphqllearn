@@ -1,6 +1,7 @@
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
 import img_empty from './empty.png'
+import './index.less'
 
 const Index = (props) => {
     return (
