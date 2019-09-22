@@ -146,20 +146,20 @@ module.exports = function(webpackEnv) {
           }
         );
       } else {
-      loaders.push(
-          {
-            loader: require.resolve('resolve-url-loader'),
-            options: {
-              sourceMap: isEnvProduction && shouldUseSourceMap,
+        loaders.push(
+            {
+              loader: require.resolve('resolve-url-loader'),
+              options: {
+                sourceMap: isEnvProduction && shouldUseSourceMap,
+              },
             },
-          },
-          {
-            loader: require.resolve(preProcessor),
-            options: {
-              sourceMap: true,
-            },
-          }
-        );
+            {
+              loader: require.resolve(preProcessor),
+              options: {
+                sourceMap: true,
+              },
+            }
+          );
       }
     }
     return loaders;
@@ -399,10 +399,6 @@ module.exports = function(webpackEnv) {
                 ),
                 
                 plugins: [
-                  ["import", {
-                    "libraryName": "antd-mobile",
-                    "style": true,//"css"
-                  }],
                   [
                     require.resolve('babel-plugin-named-asset-import'),
                     {
@@ -414,6 +410,10 @@ module.exports = function(webpackEnv) {
                       },
                     },
                   ],
+                  ["import", {
+                    "libraryName": "antd-mobile",
+                    "style": true,//"css"
+                  }],
                 ],
                 // This is a feature of `babel-loader` for webpack (not Babel itself).
                 // It enables caching results in ./node_modules/.cache/babel-loader/
@@ -519,20 +519,26 @@ module.exports = function(webpackEnv) {
             {
               test: lessRegex,
               exclude: lessModuleRegex,
-              use: getStyleLoaders({ importLoaders: 2 }, 'less-loader'), // 注意第二个参数
-              include: /node_modules/,
+              // include: /node_modules/,
+              use: getStyleLoaders({ 
+                  importLoaders: 2,
+                  sourceMap: isEnvProduction && shouldUseSourceMap, 
+                }, 
+                'less-loader'
+              ), // 注意第二个参数
             },
             {
               test: lessModuleRegex,
               use: getStyleLoaders(
                 {
                   importLoaders: 2,
+                  sourceMap: isEnvProduction && shouldUseSourceMap, 
                   modules: true,
                   getLocalIdent: getCSSModuleLocalIdent,
                 },
                 'less-loader' // 注意第二个参数
               ),
-              include: /node_modules/
+              // include: /node_modules/
             },
             // "file" loader makes sure those assets get served by WebpackDevServer.
             // When you `import` an asset, you get its (virtual) filename.
