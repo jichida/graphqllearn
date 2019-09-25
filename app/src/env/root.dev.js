@@ -3,12 +3,13 @@ import lodashGet from 'lodash.get'
 import { Route, BrowserRouter as Router } from 'react-router-dom'
 import { LocaleProvider } from 'antd-mobile'
 import { ApolloProvider, useQuery } from '@apollo/react-hooks'
-import { GetLocale } from '../components/controls/app'
+import { GetLocale } from '../components/query/app'
 import { useStatusBarHeight } from './hooks/hookstatusbarheight'
 import AppRoot from '../components/approot.js'
 
 // apollo client
-import config, { initState, resolvers } from './config'
+import config from './config'
+import { initState, resolvers, typeDefs } from './apollo' 
 import { ApolloClient } from 'apollo-client'
 import { getMainDefinition } from 'apollo-utilities'
 import { ApolloLink, split } from 'apollo-link'
@@ -31,7 +32,7 @@ const languages = {
   'en': enUS
 }
 
-const ChildRoot = (props)=>{
+export const ChildRoot = (props)=>{
   const { data: { locale } } = useQuery(GetLocale)
 
   return (
@@ -47,7 +48,7 @@ const ChildRoot = (props)=>{
   )
 }
 
-const Root = (props) => {
+const Root = async (props) => {
   const statusbarInfo = useStatusBarHeight()
 
   const httpLink = new HttpLink({
@@ -77,7 +78,7 @@ const Root = (props) => {
       const token = localStorage.getItem('token')
   
       if (token) {
-        headers = { ...headers, authorization: token }
+        headers = { ...headers, "x-token": token }
       }
   
       return { headers }
@@ -117,7 +118,7 @@ const Root = (props) => {
     link,
     cache,
     resolvers,
-    // typeDefs
+    typeDefs
   })
   
   cache.writeData({data: {...initState, statusbar: lodashGet(statusbarInfo, 'data.statusBarHeight', 22),}})

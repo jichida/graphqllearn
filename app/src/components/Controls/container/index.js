@@ -1,6 +1,6 @@
 import React from 'react'
 import lodashGet from 'lodash.get'
-import { GetStatusbar } from '../app'
+import { GetStatusbar } from '../../query/app'
 import { useQuery } from '@apollo/react-hooks'
 
 const Index = (props) => {

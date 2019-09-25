@@ -18,8 +18,9 @@ const formikOption = {
           .required(`${formatMessage({id: 'login.password.input'})}`),
     }),
     handleSubmit: (values, { props: { onSubmit }, setSubmitting }) => {
-        setSubmitting(true)
+        // setSubmitting(true)
         onSubmit(values)
+        setSubmitting(false)
     }
 }
 

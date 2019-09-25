@@ -1,6 +1,7 @@
 import React, { Suspense, lazy } from 'react';
 import { Route,Switch,withRouter } from 'react-router-dom';
 import './common.less';
+import Loading from './controls/loading'
 import Spin from 'antd/es/spin';
 
 import {requireAuthentication} from './requireauthentication';
@@ -9,6 +10,7 @@ import SignIn from './pages/sign-in'
 import SignUp from './pages/sign-up'
 import SignForget from './pages/sign-forget'
 import AccountSetting from './pages/account-setting'
+const Index =  withRouter(lazy(() => import('./pages/home')))
 // import Index from './index-container'
 // // import MyPersonal from './my-personal'
 // import MyPersonalProfit from './my-personalprofit'
@@ -37,30 +39,33 @@ const AppRoot = (props) => {
 
   return (
     <div style={rootStyle} >
-      <Switch>
-        <Route exact path="/" component={SignIn} />
-        <Route exact path="/signup/:invitecode" component={SignUp} />
-        {/* <Route exact path="/signupsuccess" component={SignUpSuccess} />
-        <Route exact path="/signupagreement" component={SignUpAgreement} /> */}
-        <Route exact path="/signforget" component={SignForget} />
-        <Route exact path="/accountsetting/0" component={AccountSetting} />
-        {/* <Route exact path="/index" component={requireAuthentication(Index)} />
-        <Route exact path="/mypersonal" component={requireAuthentication(MyPersonal)} />
-        <Route exact path="/mypersonalprofit" component={requireAuthentication(MyPersonalProfit)} />
-        <Route exact path="/mypersonalclubprofit" component={requireAuthentication(MyPersonalClubProfit)} />
-        <Route exact path="/myclubprofit" component={requireAuthentication(MyClubProfit)} />
-        <Route exact path="/myclub" component={requireAuthentication(MyClub)} />
-        <Route exact path="/mydiscovery" component={requireAuthentication(MyDiscovery)} />
-        <Route exact path="/news/:id" component={requireAuthentication(MyDiscoveryNews)} />
-        <Route exact path="/mysetting" component={requireAuthentication(MySetting)} />
-        <Route exact path="/mysettingpassword" component={requireAuthentication(MySettingPassword)} />
-        <Route exact path="/mysettingtransaction" component={requireAuthentication(MySettingTransaction)} />
-        <Route exact path="/mysettingkeyexport" component={requireAuthentication(MySettingKeyExport)} />
-        <Route exact path="/mysettingkeyview" component={requireAuthentication(MySettingKeyView)} />
-        <Route exact path="/mycontact" component={requireAuthentication(MyContact)} />
-        <Route exact path="/mycontactchat/:adminuserid" component={requireAuthentication(MyContactChat)} />
-        <Route exact path="/myabout" component={requireAuthentication(MyAbout)} /> */}
-      </Switch>
+      <Suspense fallback={<Loading />}>
+        <Switch>
+          <Route exact path="/" component={SignIn} />
+          <Route exact path="/signup/:invitecode" component={SignUp} />
+          {/* <Route exact path="/signupsuccess" component={SignUpSuccess} />
+          <Route exact path="/signupagreement" component={SignUpAgreement} /> */}
+          <Route exact path="/signforget" component={SignForget} />
+          {/* <Route exact path="/" component={Index} /> */}
+          <Route exact path="/accountsetting/0" component={AccountSetting} />
+          {/* <Route exact path="/index" component={requireAuthentication(Index)} />
+          <Route exact path="/mypersonal" component={requireAuthentication(MyPersonal)} />
+          <Route exact path="/mypersonalprofit" component={requireAuthentication(MyPersonalProfit)} />
+          <Route exact path="/mypersonalclubprofit" component={requireAuthentication(MyPersonalClubProfit)} />
+          <Route exact path="/myclubprofit" component={requireAuthentication(MyClubProfit)} />
+          <Route exact path="/myclub" component={requireAuthentication(MyClub)} />
+          <Route exact path="/mydiscovery" component={requireAuthentication(MyDiscovery)} />
+          <Route exact path="/news/:id" component={requireAuthentication(MyDiscoveryNews)} />
+          <Route exact path="/mysetting" component={requireAuthentication(MySetting)} />
+          <Route exact path="/mysettingpassword" component={requireAuthentication(MySettingPassword)} />
+          <Route exact path="/mysettingtransaction" component={requireAuthentication(MySettingTransaction)} />
+          <Route exact path="/mysettingkeyexport" component={requireAuthentication(MySettingKeyExport)} />
+          <Route exact path="/mysettingkeyview" component={requireAuthentication(MySettingKeyView)} />
+          <Route exact path="/mycontact" component={requireAuthentication(MyContact)} />
+          <Route exact path="/mycontactchat/:adminuserid" component={requireAuthentication(MyContactChat)} />
+          <Route exact path="/myabout" component={requireAuthentication(MyAbout)} /> */}
+        </Switch>
+      </Suspense>
     </div>
   )
 }

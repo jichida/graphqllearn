@@ -12,7 +12,7 @@ import BackToExit from '../../controls/backToExitApp'
 
 const SignIn = gql`
   mutation SignIn($email: String!, $password: String!) {
-    signIn(login: $email, password: $password) {
+    signIn(email: $email, password: $password) @client {
       token
     }
   }
@@ -21,8 +21,8 @@ const SignIn = gql`
 const Index = ({history}) => {
   const { formatMessage } = useIntl()
   const [ signIn, { error }] = useMutation(SignIn, {
-    onCompleted(data) {
-      console.log('sign in result:', data)
+    onCompleted({signIn}) {
+      console.log('sign in result:', signIn)
     }
   })
 

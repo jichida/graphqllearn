@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useQuery } from '@apollo/react-hooks'
 import { Modal, List } from 'antd-mobile'
-import { GetLocale } from '../app'
+import { GetLocale } from '../../query/app'
 import './index.less'
 
 const Index = ({visible}) => {

@@ -15,20 +15,9 @@ let config = {
     serverurl:`${serverurl}`,
     wspath:`${wspath}`,
     requesttimeout:5000,
-    appversion:'1.0.1(build0903)',
+    appversion:'1.0.0(build0903)',
     sendlocationinterval:20000,
     softmode:'app'
-};
-
-export const initState = {
-    locale: 'zh-cn',
-    maintabIndex: 0,
-    statusbar: 22,
 }
-
-export const resolvers = {}
-
-export const typeDefs = {}
-
 
 export default config;

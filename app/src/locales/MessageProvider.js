@@ -28,6 +28,6 @@ export default localeWithoutRegion => {
       localizedMessages = en
   }
   const retjson = localizedMessages;
-  console.log(retjson);
+  // console.log(retjson);
   return retjson;
 }

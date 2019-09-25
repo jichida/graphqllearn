@@ -1,103 +1,105 @@
-import { ApolloClient } from 'apollo-client'
-import { getMainDefinition } from 'apollo-utilities'
-import { ApolloLink, split } from 'apollo-link'
-import { HttpLink } from 'apollo-link-http'
-import { WebSocketLink } from 'apollo-link-ws'
-import { onError } from 'apollo-link-error'
-import { InMemoryCache } from 'apollo-cache-inmemory'
-import config from './config'
+import gql from "graphql-tag"
 
-// let client = null
+export const typeDefs = gql`
+    extend type User {
+        _id: ID!
+        email: String!
+        password: String!
+        name: String!
+        token: String!
+        loginSuccess: Boolean!
+    }
 
-const create = async (initialState, resolvers, typeDefs) => {
-  const httpLink = new HttpLink({
-      uri: config.httplink,
-  })
-    
-  // const wsLink = new WebSocketLink({
-  //     uri: config.wslink,
-  //     options: {
-  //       reconnect: true,
-  //     },
-  // })
+    extend type Goods {
+        _id: ID!
+        name: String!
+        desc: String!
+        parameter: String!
+        pics: [String]!
+        category: [GoodsCategory]!
+        reviews: [review]!
+    }
 
-  // const terminatingLink = split(
-  //   ({ query }) => {
-  //     const { kind, operation } = getMainDefinition(query)
-  //     return (
-  //       kind === 'OperationDefinition' && operation === 'subscription'
-  //     )
-  //   },
-  //   wsLink,
-  //   httpLink,
-  // )
-  
-  // const authLink = new ApolloLink((operation, forward) => {
-  //   operation.setContext(({ headers = {} }) => {
-  //     const token = localStorage.getItem('token')
-  
-  //     if (token) {
-  //       headers = { ...headers, authorization: token }
-  //     }
-  
-  //     return { headers }
-  //   })
-  
-  //   return forward(operation)
-  // })
+    extend type Category {
+        _id: ID!
+        name: String!
+        price: Float!
+        discount: Float!
+    }
 
-  // const signOut = client => {
-  //   localStorage.removeItem('token')
-  //   client.resetStore()
-  // }
-  
-  // const errorLink = onError(({ graphQLErrors, networkError }) => {
-  //   if (graphQLErrors) {
-  //     graphQLErrors.forEach(({ message, locations, path }) => {
-  //       console.log('GraphQL error', message)
-  
-  //       if (message === 'UNAUTHENTICATED') {
-  //         signOut(client)
-  //       }
-  //     })
-  //   }
-  
-  //   if (networkError) {
-  //     console.log('Network error', networkError)
-  
-  //     if (networkError.statusCode === 401) {
-  //       signOut(client)
-  //     }
-  //   }
-  // })
-  
-  // const link = ApolloLink.from([authLink, errorLink, terminatingLink])
-  
-  const cache = new InMemoryCache()
-    
-  const client = new ApolloClient({
-    link: httpLink,
-    cache,
-    // resolvers,
-    // typeDefs
-  })
+    extend type Reviews {
+        _id: ID!
+        author: User!
+        content: String!
+        pics: [String]!
+    }
 
-  cache.writeData({data: initialState})
+    # extend type Query {
+    #     goods: [Goods]!
+    # }
 
-  console.log('resolvers:', resolvers)
+    extend type Query {
+        isLoggedIn: Boolean!
+    }
 
-  client.onResetStore(() => cache.writeData({data: initialState}))
+    extend type Mutation {
+        signIn(email: String!, password: String!): User
+    }
+  
+`;
 
-  return client
+export const resolvers = {
+    Mutation: {
+        signIn: (parent, { email, password }) => ({
+            email,
+            password,
+            loginSuccess: true,
+            token: `${email}`,
+            __typename: 'userLogin'
+        })
+    },
+    Query: {
+        // goods: (_, args, { cache }) => {},
+        // isLoggedIn: (_, args, { cache }) => { console.log('isLoggedIn!')}
+    },
+};
+
+export const initState = {
+    locale: 'zh-cn',
+    maintabIndex: 0,
+    statusbar: 22,
+    userLogin: {
+        loginSuccess: false,
+        __typename: 'userLogin'
+    },
+    Goods: [{
+        _id: 1,
+        name: 'mate 30 pro',
+        desc: '华为',
+        parameter: 'markdown',
+        pics: [
+            'https://img.alicdn.com/imgextra/i1/1800399917/O1CN01w6x3Fz2N82LRqSmBC_!!1800399917.jpg', 
+        ],
+        __typename: 'Goods'
+    }],
+    Category: [{
+        _id: 1,
+        name: 'mate20',
+        price: 3400,
+        discount: 3200,
+        __typename: 'Category'
+    }],
+    Reviews: [{
+        _id: 1,
+        author: '3@qq.com',
+        content: 'very good',
+        pics: [
+            'https://img.alicdn.com/bao/uploaded/i4/O1CN01SFIUCI1Ub4aKEeOCJ_!!0-rate.jpg_40x40.jpg'
+        ],
+        __typename: 'Reviews'
+    }]
 }
 
-export default (initialState = {}, resolvers = {}, typeDefs = {}) => {
-    // if (!client) {
-    //     client = create(initialState, resolvers, typeDefs)
-    // }
 
-    const client = create(initialState, resolvers, typeDefs)
 
-    return client
-}
 
