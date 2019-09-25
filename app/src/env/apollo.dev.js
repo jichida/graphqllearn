@@ -34,18 +34,14 @@ export const typeDefs = gql`
         pics: [String]!
     }
 
-    # extend type Query {
-    #     goods: [Goods]!
-    # }
-
     extend type Query {
         isLoggedIn: Boolean!
+        goods: [Goods]!
     }
 
     extend type Mutation {
         signIn(email: String!, password: String!): User
     }
-  
 `;
 
 export const resolvers = {
@@ -60,7 +56,7 @@ export const resolvers = {
     },
     Query: {
         // goods: (_, args, { cache }) => {},
-        // isLoggedIn: (_, args, { cache }) => { console.log('isLoggedIn!')}
+        isLoggedIn: (_, args, { cache }) => { console.log('isLoggedIn!')}
     },
 };
 
